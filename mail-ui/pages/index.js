@@ -7,18 +7,41 @@ import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
 import { TextField } from '@mui/material';
 import Typed from 'react-typed';
+import Alert from '@mui/material/Alert';
+import { registerUser } from '../controllers/register';
 
 export default function Home() {
   const bannerStrings = ["Get daily tips 🚀", "Get important information from us ✨"];
   const [mail, setMail] = useState('');
+  const [showAlert, setShowAlert] = useState(false);
+  const [showAlertDuplicated, setShowAlertDuplicated] = useState(false);
+
+  const validateMail = (mail) => {
+    if (mail.length > 0) {
+      let regex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.]{1}[a-zA-Z]{2,}$/;
+      return regex.test(mail);
+    }
+    return false;
+  }
 
   const onMailChange = (e) => {
-    setMail(e.target.value);
+    let mail = e.target.value.trim();
+    setMail(mail.toLowerCase());
+
+    setShowAlert(!validateMail(mail));
+    
     //onSetValue(e, e.target.value)
   };
 
-  const handleSubmit = () => {
-    console.log(mail);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const userMail = {
+      email: mail
+    };
+
+    registerUser(userMail, setShowAlertDuplicated);
+    
     setMail('');
   }
 
@@ -57,7 +80,29 @@ export default function Home() {
             width: 450
           }}
         />
-
+        {
+          showAlert && 
+          <Alert 
+            severity='error'
+            style={{
+              width: 450
+            }}
+          >
+            The input must be a valid email address!
+          </Alert>
+        }
+        {
+          showAlertDuplicated && 
+          <Alert 
+            severity='warning'
+            style={{
+              width: 450
+            }}
+          >
+            The email has already been registered!
+          </Alert>
+        }
+        
         < br/>
         <Button 
           variant="contained"
@@ -83,4 +128,4 @@ export default function Home() {
       </footer>
     </div>
   )
-}
+};
