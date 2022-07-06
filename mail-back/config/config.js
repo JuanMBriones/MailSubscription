@@ -1,3 +1,4 @@
+/* eslint-disable linebreak-style */
 require('dotenv').config();
 
 process.env.PORT = process.env.PORT || 3000;

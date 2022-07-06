@@ -1,6 +1,4 @@
-const AWS = require('aws-sdk');
 const https = require('https');
-
 
 const options = {
   protocol: 'https:',
@@ -12,22 +10,29 @@ const options = {
   },
 };
 
+/**
+ * Do a request with options provided.
+ *
+ * @param {Object} options
+ * @param {Object} data
+ * @return {Promise} a promise of request
+ */
 function doRequest(options, data) {
   return new Promise((resolve, reject) => {
     const req = https.request(options, (res) => {
-      res.setEncoding("utf8");
-      let responseBody = "";
+      res.setEncoding('utf8');
+      let responseBody = '';
 
-      res.on("data", (chunk) => {
+      res.on('data', (chunk) => {
         responseBody += chunk;
       });
 
-      res.on("end", () => {
+      res.on('end', () => {
         resolve(JSON.parse(responseBody));
       });
     });
 
-    req.on("error", (err) => {
+    req.on('error', (err) => {
       reject(err);
     });
 
@@ -37,9 +42,9 @@ function doRequest(options, data) {
 
 const getRecipients = async () => {
   const response = await doRequest(options);
-  return JSON.stringify(response).mails;
-}
+  return response;
+};
 
 module.exports = {
   getRecipients,
-}
+};

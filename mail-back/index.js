@@ -1,31 +1,31 @@
-require('./config/config')
-const express = require('express')
+require('./config/config');
+const express = require('express');
 const bodyParser = require('body-parser');
-const morgan = require('morgan')
-var cors = require('cors')
+const morgan = require('morgan');
+const cors = require('cors');
+const userRoutes = require('./routes/user');
 
-const app = express();      
-app.use(morgan('tiny'))
+require('./database/config');
+
+const app = express();
+
+app.use(morgan('tiny'));
 
 app.use(cors({
-    origin: [
-        'https://mail-subscription-gy9gae1iz-juanmbriones.vercel.app',
-        'https://mail-sender-back.herokuapp.com/',
-    ],
-}))
+  origin: [
+    'https://mail-subscription-gy9gae1iz-juanmbriones.vercel.app',
+    'https://mail-sender-back.herokuapp.com/',
+  ],
+}));
 
 app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: true })); // parse application/x-www-form-urlencoded
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json()); // parse application/json
-
-require('./database/config'); // IMPORT MONGODB                             
-
-var userRoutes = require('./routes/user');
-
-app.use('/api', userRoutes)
+app.use('/api', userRoutes);
 
 app.listen(process.env.PORT, () => {
-    console.log(`'Express server port: ${process.env.PORT}`);
+  console.log(`'Express server port: ${process.env.PORT}`);
 });
 
-module.exports = app;          
+module.exports = app;

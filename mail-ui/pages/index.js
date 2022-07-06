@@ -1,49 +1,54 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import Head from 'next/head';
+import styles from '../styles/Home.module.css';
 import * as React from 'react';
-import { useState } from 'react';
+import {useState} from 'react';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
-import { TextField } from '@mui/material';
+import {TextField} from '@mui/material';
 import Typed from 'react-typed';
 import Alert from '@mui/material/Alert';
-import { registerUser } from '../controllers/register';
+import {registerUser} from '../controllers/register';
 
+/**
+ * Renders the main page of the app.
+ * @function Home
+ * @return {JSX.Element} The rendered component
+ */
 export default function Home() {
-  const bannerStrings = ["Get daily tips 🚀", "Get important information from us ✨"];
+  const bannerStrings = [
+    'Get daily tips 🚀',
+    'Get important information from us ✨',
+  ];
   const [mail, setMail] = useState('');
   const [showAlert, setShowAlert] = useState(false);
   const [showAlertDuplicated, setShowAlertDuplicated] = useState(false);
 
   const validateMail = (mail) => {
     if (mail.length > 0) {
-      let regex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.]{1}[a-zA-Z]{2,}$/;
+      const regex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.]{1}[a-zA-Z]{2,}$/;
       return regex.test(mail);
     }
     return false;
-  }
+  };
 
   const onMailChange = (e) => {
-    let mail = e.target.value.trim();
+    const mail = e.target.value.trim();
     setMail(mail.toLowerCase());
 
     setShowAlert(!validateMail(mail));
-    
-    //onSetValue(e, e.target.value)
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const userMail = {
-      email: mail
+      email: mail,
     };
 
     registerUser(userMail, setShowAlertDuplicated);
-    
+
     setMail('');
-  }
+  };
 
   return (
     <div className={styles.container}>
@@ -59,13 +64,13 @@ export default function Home() {
         </h1>
 
         <Typed
-            strings={bannerStrings}
-            typeSpeed={40}
-            backSpeed={50}
-            loop
-          />
+          strings={bannerStrings}
+          typeSpeed={40}
+          backSpeed={50}
+          loop
+        />
         < br />
-        
+
         <TextField
           autoFocus
           value={mail}
@@ -77,34 +82,34 @@ export default function Home() {
             pattern: '[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+[.]{1}[a-zA-Z]{2,}$',
           }}
           style = {{
-            width: 450
+            width: 450,
           }}
         />
         {
-          showAlert && 
-          <Alert 
+          showAlert &&
+          <Alert
             severity='error'
             style={{
-              width: 450
+              width: 450,
             }}
           >
             The input must be a valid email address!
           </Alert>
         }
         {
-          showAlertDuplicated && 
-          <Alert 
+          showAlertDuplicated &&
+          <Alert
             severity='warning'
             style={{
-              width: 450
+              width: 450,
             }}
           >
             The email has already been registered!
           </Alert>
         }
-        
+
         < br/>
-        <Button 
+        <Button
           variant="contained"
           endIcon={<SendIcon />}
           onClick={handleSubmit}
@@ -127,5 +132,5 @@ export default function Home() {
         </a>
       </footer>
     </div>
-  )
+  );
 };

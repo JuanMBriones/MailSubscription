@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+
+cd mail-ui
+npm run lint
+
+cd ../mail-back
+npm run lint
