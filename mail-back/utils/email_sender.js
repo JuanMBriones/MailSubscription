@@ -1,5 +1,4 @@
 const nodemailer = require("nodemailer");
-const { getUsers } = require("../controllers/user");
 
 async function sendEmail(emails) {
 
@@ -31,6 +30,7 @@ async function sendEmail(emails) {
 
 const sendEmailEveryone = async (req, res) => {
   //const { email } = req.body;
+  const { getUsers } = require("../controllers/user");
   const emails = await getUsers();
 
   sendEmail(emails).catch(console.error);
