@@ -1,4 +1,5 @@
 const AWS = require('aws-sdk');
+const getRecipients = require('./email_recipients');
 
 AWS.config.update({
     region: 'us-east-2',
@@ -10,11 +11,11 @@ exports.handler = async (event) => {
     // TODO: Get emails by calling the REST API
     const params = {
         Destination: {
-            ToAddresses: ['JuanMBriones@outlook.com', 'finn.monteithbriones.17@gmail.com'],
+            ToAddresses: await getRecipients(),
         },
         Message: {
             Subject: {
-                Data: 'Test Email'
+                Data: 'Daily Newsletter 📰📰📰',
             },
             Body: {
               Html: {
