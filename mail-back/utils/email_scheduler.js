@@ -19,7 +19,8 @@ exports.handler = async (event) => {
             Body: {
               Html: {
                 Charset: "UTF-8",
-                Data: `<h3>Hello there!</h3><br/>
+                Data: `<h3>Hello there!😎</h3><br/>
+                <p>We are going to tell you the good news from ACME company! 😎</p>
                 <br/>
                 <img src='https://acegif.com/wp-content/gifs/hello-36.gif'"+
                 "alt='Hi' style='width:380px;height:380px;'>
@@ -30,7 +31,7 @@ exports.handler = async (event) => {
                 }
             }
         },
-        Source: 'finn.monteithbriones.17@gmail.com'
+        Source: process.env.EMAIL_SENDER,
     };
     await ses.sendEmail(params).promise().then(response => {
         console.log('Successfully sent email!');
