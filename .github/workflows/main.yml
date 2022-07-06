@@ -18,4 +18,5 @@ jobs:
         env:
           CI: true
         run: |
+          cd mail-back
           npm ci
