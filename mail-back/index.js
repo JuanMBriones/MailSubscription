@@ -8,7 +8,10 @@ const app = express();
 app.use(morgan('tiny'))
 
 app.use(cors({
-    origin: 'https://mail-sender-back.herokuapp.com/',
+    origin: [
+        'https://mail-subscription-gy9gae1iz-juanmbriones.vercel.app',
+        'https://mail-sender-back.herokuapp.com/',
+    ],
 }))
 
 app.use(express.json());
