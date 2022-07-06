@@ -13,7 +13,8 @@ app.use(morgan('tiny'));
 
 app.use(cors({
   origin: [
-    'https://mail-subscription-gy9gae1iz-juanmbriones.vercel.app',
+    'https://mail-subscription.vercel.app',
+    'https://mail-subscription-juanmbriones.vercel.app',
     'https://mail-sender-back.herokuapp.com/',
   ],
 }));

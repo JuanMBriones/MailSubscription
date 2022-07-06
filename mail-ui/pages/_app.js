@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/globals.css';
+import PropTypes from 'prop-types';
 
 /**
  *
@@ -12,7 +13,7 @@ function MyApp({Component, pageProps}) {
 }
 
 MyApp.propTypes = {
-  Component: ElementType.isRequired,
+  Component: PropTypes.elementType.isRequired,
   pageProps: PropTypes.object.isRequired,
 };
 
