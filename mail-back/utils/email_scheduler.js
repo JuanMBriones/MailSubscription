@@ -17,6 +17,14 @@ exports.handler = async (event) => {
                 Data: 'Test Email'
             },
             Body: {
+              Html: {
+                Charset: "UTF-8",
+                Data: `<h3>Hello there!</h3><br/>
+                <br/>
+                <img src='https://acegif.com/wp-content/gifs/hello-36.gif'"+
+                "alt='Hi' style='width:380px;height:380px;'>
+                `
+              },
                 Text: {
                     Data: 'Hello!!!',
                 }
